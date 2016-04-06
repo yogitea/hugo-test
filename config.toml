@@ -1,0 +1,3 @@
+baseurl = "http://files.treutler.cc.s3-website.eu-central-1.amazonaws.com/"
+languageCode = "en-us"
+title = "First try deploying treutler.cc to S3"
