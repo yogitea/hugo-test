@@ -1,3 +1,26 @@
-baseurl = "http://www.treutler.cc.s3-website-eu-west-1.amazonaws.com/"
 languageCode = "en-us"
-title = "Treutler.cc Block"
+contentdir = "content"
+publishdir = "public"
+builddrafts = false
+baseurl = "http://www.treutler.cc/"
+canonifyurls = true
+title = "Christian Blog"
+author = "Christian Treutler"
+copyright = "This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License."
+
+
+[indexes]
+   category = "categories"
+   tag = "tags"
+[Params]
+  AuthorName = "Christian"
+  github = "yogitea"
+  twitter = "yogitea"
+  email = "treutler.cc@teadrinker.de"
+  description = ""
+  cv = "/pages/cv"
+  legalnotice = "/pages/legal-notice"
+  muut = "yogitea"
+  linkedin = "treutler"
+  cover = "/images/background-cover.jpg"
+  logo = "/img/logo-1.jpg"
