@@ -1,11 +1,11 @@
 +++
 date = "2016-04-07T09:44:03+02:00"
 draft = false
-title = "Welcome to this blog."
+title = "Welcome Have a look around."
 
 +++
 
-# Welcome. Have a look around.
+### Dear Reader
 
 This is a  little blog that will cover many different areas that I am interested in.
 
