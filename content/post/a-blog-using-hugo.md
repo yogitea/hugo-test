@@ -5,9 +5,7 @@ title = "A Hugo blog - automated"
 
 +++
 
-# A Hugo blog - automated - Howto.
-
-## The big Why?
+# The big Why?
 
 I have to admit I am annoyed by CMS systems. All of them require constant care and are usually hard to use. In the past I have tried [Wordpress](http://www.wordpress.com) or [Drupal](http://www.drupal.com) and always found that they kind of work, but once I left it alone for a couple months it got ugly. So I got rid of all these installations after a while.
 
@@ -40,19 +38,20 @@ Come one you probably have at least one you can play with. Otherwise you would n
 The [CircleCI](https://circleci.com/) site makes it extremely simple to add your GitHub account and use it as the reference for creating projects. One project in one container is free for hobbyists like us.
 
 > **Note**: If you are using the [Repo](https://github.com/nathany/hugo-deploy) including the circleCI config files there are two **unmentioned** Environment variables that need to be set.
-> 1. BUCKET - the bucket name that should be used in S3
-> 2. REGION if you want to deploy anywhere else than us-east-1. In my case I wanted to deploy to Frankfurt, but that resulted in an error. See the S3 section for more information.
+
+ 1. BUCKET - the bucket name that should be used in S3
+ 2. REGION if you want to deploy anywhere else than us-east-1. In my case I wanted to deploy to Frankfurt, but that resulted in an error. See the S3 section for more information.
 
 > These can be set in your project details under *build settings*.
 
 ### AWS S3 bucket
 
 I got a free Amazon AWS account a while ago to play with certain [aspirations](http://lg.io/2015/07/05/revised-and-much-faster-run-your-own-highend-cloud-gaming-service-on-ec2.html) for Gaming on AWS. I never followed through with that, but I have this account already setup. So the next step was to create a S3 bucket for the static site. Couple of things to keep in mind:
-1. Name the bucket exactly as the hostname you want to use it from. In my case it is *www.treutler.cc*.
-2. Choose your region wisely. I **encountered a problem** not being able to connect to *eu-central-1* S3 bucket with the supplied tools, because it only supports the authentication v4, which the toolchain that Nathan uses does not support. So I had to switch to *eu-west-1* instead. If the toolchain gets updated to use the new SDK by Amazon it should work with the *eu-central-1* as well.
-3. Enable the static site hosting in the Properties of the bucket.
-4. Enable CORS in the same page.
-5. Generate a new [IAM](https://aws.amazon.com/iam/) user in the AWS portal and add the Access Key and the Secret Access key to CircleCI (AWS permissions).
+ 1. Name the bucket exactly as the hostname you want to use it from. In my case it is *www.treutler.cc*.
+ 2. Choose your region wisely. I **encountered a problem** not being able to connect to *eu-central-1* S3 bucket with the supplied tools, because it only supports the authentication v4, which the toolchain that Nathan uses does not support. So I had to switch to *eu-west-1* instead. If the toolchain gets updated to use the new SDK by Amazon it should work with the *eu-central-1* as well.
+ 3. Enable the static site hosting in the Properties of the bucket.
+ 4. Enable CORS in the same page.
+ 5. Generate a new [IAM](https://aws.amazon.com/iam/) user in the AWS portal and add the Access Key and the Secret Access key to CircleCI (AWS permissions).
 > **Note:** Don't forget to actually give Full S3 permissions to that user! Otherwise you will get only "Access denied" when it tries to deploy your site.
 
 ### Cloudflare
@@ -66,11 +65,11 @@ So I took the Repo by Nathan [Link](https://github.com/nathany/hugo-deploy) and 
 Next step was to create the circleCI project and commit changes to the repo to trigger the built process.
 Once I had found all the **issues** that prevented the built it actually work. Now the hard part begins... Creating content ;)
 
-> Issues I had:
-> 1. Missing (non documented) Environment variables for built in CircleCI.
-> 2. S3 eu-central-1 not supported with tool chain. Had to switch to eu-west-1. Authentication error.
-> 3. Missing IAM permissions to access S3. (Simple oversight)
-> 4. Default deployment tool s3up command line did not include a region, which I needed to add for any custom region (default us-east-1) to work. The error is that bucket is not available.
+**Issues I had:**
+ 1. Missing (non documented) Environment variables for built in CircleCI.
+ 2. S3 eu-central-1 not supported with tool chain. Had to switch to eu-west-1. Authentication error.
+ 3. Missing IAM permissions to access S3. (Simple oversight)
+ 4. Default deployment tool s3up command line did not include a region, which I needed to add for any custom region (default us-east-1) to work. The error is that bucket is not available.
 
     Example change circle.yml
         - s3up -source=public/ -bucket=$BUCKET -region=$REGION
