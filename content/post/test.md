@@ -6,3 +6,4 @@ title = "test"
 +++
 
 This is awesome **good**.
+Git integration in Atom?
