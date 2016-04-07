@@ -5,7 +5,7 @@ title = "A Hugo blog - automated"
 
 +++
 
-# The big Why?
+## The big Why?
 
 I have to admit I am annoyed by CMS systems. All of them require constant care and are usually hard to use. In the past I have tried [Wordpress](http://www.wordpress.com) or [Drupal](http://www.drupal.com) and always found that they kind of work, but once I left it alone for a couple months it got ugly. So I got rid of all these installations after a while.
 
@@ -17,23 +17,24 @@ Now the next step was to actually have a simple way of running a Hugo site. I fo
 
 So here it is. My steps and all the gotchas that I found.
 
-## Overview
+### Overview
 
 1. Install Hugo locally for testing and playing with it - free
 2. GitHub account (which I already had) - free
 3. CircleCI account - which connects to GitHub- free
 4. AWS account with a configured S3 bucket (cheap)
 5. Cloudflare DNS for HTTPS - because we would like to join Encryption Everywhere right? - free
+6. Example hugo-deploy repo
 
-### Installing Hugo
+#### Installing Hugo
 
 Piece of cake. Follow the [Instructions](https://gohugo.io/overview/installing/) on the Hugo site and be done with it. Homebrew on Mac works beautifully.
 
-### GitHub account
+#### GitHub account
 
 Come one you probably have at least one you can play with. Otherwise you would not read this blog. :)
 
-### CircleCI
+#### CircleCI
 
 The [CircleCI](https://circleci.com/) site makes it extremely simple to add your GitHub account and use it as the reference for creating projects. One project in one container is free for hobbyists like us.
 
@@ -44,7 +45,7 @@ The [CircleCI](https://circleci.com/) site makes it extremely simple to add your
 
 These can be set in your project details under *build settings*.
 
-### AWS S3 bucket
+#### AWS S3 bucket
 
 I got a free Amazon AWS account a while ago to play with certain [aspirations](http://lg.io/2015/07/05/revised-and-much-faster-run-your-own-highend-cloud-gaming-service-on-ec2.html) for Gaming on AWS. I never followed through with that, but I have this account already setup. So the next step was to create a S3 bucket for the static site. Couple of things to keep in mind:
 
@@ -56,14 +57,14 @@ I got a free Amazon AWS account a while ago to play with certain [aspirations](h
 
 **Note:** Don't forget to actually give Full S3 permissions to that user! Otherwise you will get only "Access denied" when it tries to deploy your site.
 
-### Cloudflare
+#### Cloudflare
 
 Cloudflare can be used setup DNS for your site. Follow the Cloudflare [Instructions](https://www.google.de/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0ahUKEwiQ3o7dtvzLAhVGwBQKHTYTAsgQFggdMAA&url=https%3A%2F%2Fsupport.cloudflare.com%2Fhc%2Fen-us%2Farticles%2F200168926-How-do-I-use-CloudFlare-with-Amazon-s-S3-Service-&usg=AFQjCNFmJUE0Kv2eW0TQONhg2P9gOXZhHQ&sig2=dHbmZHY401-_aN4LGQ7XbA) to setup the service with your S3 account. Here the naming of the bucket will be important to match your domain.
 
 **Note:**
 Keep in mind that you have built a cache in front of your website. So your *update* in the repo might not be there instantaneously.
 
-### Example hugo-deploy repo
+#### Example hugo-deploy repo
 
 So I took the Repo by Nathan [Link](https://github.com/nathany/hugo-deploy) and put the code I wanted into a new [Repo](https://github.com/yogitea/hugo-test).
 Next step was to create the circleCI project and commit changes to the repo to trigger the built process.
@@ -81,7 +82,7 @@ Once I had found all the **issues** that prevented the built it actually work. N
         - s3up -source=public/ -bucket=$BUCKET -region=$REGION
 
 
-## Conclusion
+### Conclusion
 
 It worked. You are reading the this blog entry and it was written in Atom using Markdown, pushed to GitHub, automatically built by CircleCI, automatically uploaded to S3, published by Cloudflare DNS.
 
